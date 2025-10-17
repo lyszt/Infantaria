@@ -56,3 +56,12 @@ void renderBasicShaders(GLuint* vertex_shader, GLuint *fragment_shader) {
     checkShaderCompile(fragmentShader, "Basic fragment shader");
     *fragment_shader = fragmentShader;
 }
+
+
+
+void attachShaders(GLuint shaderProgram, const std::vector<GLuint>& shaders) {
+    for (auto shader : shaders) {
+        glAttachShader(shaderProgram, shader);
+    }
+    glLinkProgram(shaderProgram);
+}

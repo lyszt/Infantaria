@@ -61,7 +61,13 @@ int main()
         // Rendering
         GLuint vertexShader;
         GLuint fragmentShader;
+        GLuint shaderProgram = glCreateProgram();
         renderBasicShaders(&vertexShader, &fragmentShader);
+        std::vector<GLuint> shaderList = {
+            vertexShader,
+            fragmentShader
+        };
+        attachShaders(shaderProgram, shaderList);
 
 
         // sets the bg as white. colors are hexadecimal. percentages of 255.
