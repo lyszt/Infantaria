@@ -55,7 +55,17 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     while (!glfwWindowShouldClose(window)) {
-        setEscQuit(window);
+        // Input cmds
+        set_esc_quit(window);
+
+        // Rendering
+
+        // sets the bg as white. colors are hexadecimal. percentages of 255.
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+
+        // Check and call events, swap bu   ffers
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

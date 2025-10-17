@@ -10,6 +10,6 @@
 class utility {
 };
 
-void setEscQuit(GLFWwindow* window);
+void set_esc_quit(GLFWwindow* window);
 
 #endif

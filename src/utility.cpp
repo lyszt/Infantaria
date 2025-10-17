@@ -6,7 +6,7 @@
 
 
 // Close the program pressing ESC
-void setEscQuit(GLFWwindow *window) {
+void set_esc_quit(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }

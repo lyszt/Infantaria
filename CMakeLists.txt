@@ -14,7 +14,9 @@ target_include_directories(glad PUBLIC external/glad/include)
 add_executable(Infantaria
         src/Application.cpp
         src/utility.cpp
-        src/utility.h)
+        src/utility.h
+        src/forms.cpp
+        src/forms.h)
 
 target_link_libraries(Infantaria PRIVATE
         glad
