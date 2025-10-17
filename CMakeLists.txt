@@ -19,3 +19,14 @@ target_link_libraries(Infantaria PRIVATE
         OpenGL::GL
         glfw
 )
+
+if(NOT TARGET OpenGL::GL)
+    find_library(GL_LIB NAMES GL libGL)
+    if(GL_LIB)
+        message(STATUS "Linking explicit GL library: ${GL_LIB}")
+        target_link_libraries(Infantaria PRIVATE ${GL_LIB})
+    else()
+        message(WARNING "OpenGL::GL target not found and libGL not located. On Linux, install Mesa/NVIDIA/AMD GL dev packages (e.g. libgl1-mesa-dev) to provide libGL.so.")
+    endif()
+endif()
+
