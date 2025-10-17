@@ -68,7 +68,9 @@ int main()
             fragmentShader
         };
         attachShaders(shaderProgram, shaderList);
+        cleanShaders(shaderList);
 
+        glUseProgram(shaderProgram);
 
         // sets the bg as white. colors are hexadecimal. percentages of 255.
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);

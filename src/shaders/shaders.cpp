@@ -64,4 +64,19 @@ void attachShaders(GLuint shaderProgram, const std::vector<GLuint>& shaders) {
         glAttachShader(shaderProgram, shader);
     }
     glLinkProgram(shaderProgram);
+    int success;
+    char infoLog[512];
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+
+    if(!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "Failure when linking shader files to program." << "\n";
+        }
 }
+
+void cleanShaders(const std::vector<GLuint>& shaders) {
+    for (auto shader : shaders) {
+        glDeleteShader(shader);
+    }
+}
+
