@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+
+#include "glad/glad.h"
+
+#ifndef INFANTARIA_SHADERS_H
+#define INFANTARIA_SHADERS_H
+
+
+class shaders {
+};
+
+void loadShaderFromSource(const char *filePath, std::string destination);
+void renderBasicShaders(GLuint* vertex_shader, GLuint* fragment_shader);
+
+#endif //INFANTARIA_SHADERS_H

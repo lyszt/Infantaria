@@ -3,7 +3,6 @@
 //
 
 #include "forms.h"
-
 #include "glad/glad.h"
 
 // Once your vertex coordinates have been processed in the vertex shader, they should be in

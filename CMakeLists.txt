@@ -8,15 +8,17 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 find_package(glm REQUIRED)
 
-add_library(glad STATIC external/glad/src/glad.c)
+add_library(glad STATIC external/glad/src/glad.c
+        src/shaders/shaders.cpp
+        src/shaders/shaders.h)
 target_include_directories(glad PUBLIC external/glad/include)
 
 add_executable(Infantaria
         src/Application.cpp
-        src/utility.cpp
-        src/utility.h
-        src/forms.cpp
-        src/forms.h)
+        src/utility/utility.cpp
+        src/utility/utility.h
+        src/objects/forms.cpp
+        src/objects/forms.h)
 
 target_link_libraries(Infantaria PRIVATE
         glad

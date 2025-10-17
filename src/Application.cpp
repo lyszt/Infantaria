@@ -1,9 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <utility>
-
-#include "utility.h"
+#include "utility/utility.h"
+#include "shaders/shaders.h"
+#include "objects/forms.h"
 
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 720
@@ -59,13 +59,17 @@ int main()
         set_esc_quit(window);
 
         // Rendering
+        GLuint vertexShader;
+        GLuint fragmentShader;
+        renderBasicShaders(&vertexShader, &fragmentShader);
+
 
         // sets the bg as white. colors are hexadecimal. percentages of 255.
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
 
-        // Check and call events, swap bu   ffers
+        // Check and call events, swap buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
