@@ -1,3 +1,0 @@
-/home/abensoft/CLionProjects/Infantaria/build/CMakeFiles/Infantaria.dir
-/home/abensoft/CLionProjects/Infantaria/build/CMakeFiles/edit_cache.dir
-/home/abensoft/CLionProjects/Infantaria/build/CMakeFiles/rebuild_cache.dir
