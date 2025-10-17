@@ -12,7 +12,9 @@ add_library(glad STATIC external/glad/src/glad.c)
 target_include_directories(glad PUBLIC external/glad/include)
 
 add_executable(Infantaria
-        src/Application.cpp)
+        src/Application.cpp
+        src/utility.cpp
+        src/utility.h)
 
 target_link_libraries(Infantaria PRIVATE
         glad
