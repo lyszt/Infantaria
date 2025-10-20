@@ -15,3 +15,4 @@ And hopefully it will be better than the one I made back then. (Not to say it wi
 The project is mainly done for OPENGL learning. 
 My source of study is a book.
 [Learn OPENGL - Graphics Programming by Joey de Vries](https://learnopengl.com/book/book_pdf.pdf)
+

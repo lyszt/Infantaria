@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
 
 #include "glad/glad.h"
 
@@ -9,7 +13,7 @@
 class shaders {
 };
 
-void loadShaderFromSource(const char *filePath, std::string destination);
+void loadShaderFromSource(const char *filePath, std::string &destination);
 void renderBasicShaders(GLuint* vertex_shader, GLuint* fragment_shader);
 void attachShaders(GLuint shaderProgram, const std::vector<GLuint> &shaders);
 void cleanShaders(const std::vector<GLuint>& shaders);
