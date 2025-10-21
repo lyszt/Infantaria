@@ -14,7 +14,6 @@ void framebuffer_size_callback(GLFWwindow* window, const int width, const int he
 
 
 
-
 int main()
 {
     glfwInit();
@@ -50,38 +49,58 @@ int main()
         return -1;
     }
 
+    // Ensure viewport is set initially to the window size (callback will handle resizes)
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
     // Impressive. For some reason we need to tell it where the corner of the window is.
     // This + the helper function defines what happens when we resize the window
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // --- Setup: create shaders and geometry once ---
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint shaderProgram = glCreateProgram();
+    renderBasicShaders(&vertexShader, &fragmentShader);
+    std::vector<GLuint> shaderList = { vertexShader, fragmentShader };
+    attachShaders(shaderProgram, shaderList);
+    cleanShaders(shaderList);
+
+    // Check link status
+    GLint linkStatus = 0;
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkStatus);
+    if (linkStatus) {
+        std::cout << "Shader program linked OK (program id = " << shaderProgram << ")\n";
+    } else {
+        std::cerr << "Shader program linking failed (program id = " << shaderProgram << ")\n";
+    }
+
+    // Create triangle VAO (uploads vertex data and sets attribute pointers)
+    unsigned int triangleVAO = make_triangle();
+    std::cout << "Created triangle VAO = " << triangleVAO << "\n";
+
 
     while (!glfwWindowShouldClose(window)) {
         // Input cmds
         set_esc_quit(window);
 
         // Rendering
-        GLuint vertexShader;
-        GLuint fragmentShader;
-        GLuint shaderProgram = glCreateProgram();
-        renderBasicShaders(&vertexShader, &fragmentShader);
-        std::vector<GLuint> shaderList = {
-            vertexShader,
-            fragmentShader
-        };
-        attachShaders(shaderProgram, shaderList);
-        cleanShaders(shaderList);
-
-        glUseProgram(shaderProgram);
-
-        // sets the bg as white. colors are hexadecimal. percentages of 255.
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glUseProgram(shaderProgram);
+        glBindVertexArray(triangleVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindVertexArray(0);
 
         // Check and call events, swap buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+
+    // Cleanup
+    glDeleteProgram(shaderProgram);
+    glDeleteVertexArrays(1, &triangleVAO);
 
     glfwTerminate();
     return 0;

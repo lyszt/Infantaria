@@ -26,8 +26,7 @@ CXXFLAGS := $(CXXSTD) -O2 -Wall -Wextra $(PKG_CFLAGS) $(GLAD_INC)
 CFLAGS := -O2 -Wall -Wextra $(GLAD_INC)
 LDFLAGS := $(PKG_LIBS) -lGL -ldl -pthread -lm
 
-# Source files
-CPP_SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+CPP_SRCS := $(shell find $(SRC_DIR) -type f -name '*.cpp')
 CPP_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(CPP_SRCS))
 GLAD_OBJ := $(BUILD_DIR)/glad.o
 
@@ -37,8 +36,8 @@ all: $(TARGET)
 $(TARGET): $(CPP_OBJS) $(GLAD_OBJ) | dirs
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Compile project .cpp -> build/*.o
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | dirs
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Compile glad (C)
@@ -58,4 +57,3 @@ clean:
 # Convenience
 help:
 	@printf "Available targets:\n  make        (build)\n  make run    (build and run)\n  make clean  (remove artifacts)\n"
-

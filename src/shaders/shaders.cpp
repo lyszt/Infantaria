@@ -37,7 +37,9 @@
     void renderBasicShaders(GLuint* vertex_shader, GLuint *fragment_shader) {
         std::string vertexShaderSource;
         std::string basicPath = getPath("basic.glsl");
+        std::cerr << "[shaders] Loading vertex shader from: " << basicPath << std::endl;
         loadShaderFromSource(basicPath.c_str(), vertexShaderSource);
+        std::cerr << "[shaders] Vertex shader source length: " << vertexShaderSource.size() << std::endl;
         // File based (vertex)
         const GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
         const char *vertSourcePtr = vertexShaderSource.c_str();
@@ -52,8 +54,10 @@
         // Fragment shader
         std::string fragmentShaderSource;
         std::string fragmentPath = getPath("fragment.glsl");
+        std::cerr << "[shaders] Loading fragment shader from: " << fragmentPath << std::endl;
 
         loadShaderFromSource(fragmentPath.c_str(), fragmentShaderSource);
+        std::cerr << "[shaders] Fragment shader source length: " << fragmentShaderSource.size() << std::endl;
         // File based (vertex)
         GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         const char* fragSourcePtr = fragmentShaderSource.c_str();
@@ -72,14 +76,15 @@
             glAttachShader(shaderProgram, shader);
         }
         glLinkProgram(shaderProgram);
-        int success;
-        char infoLog[512];
+        GLint success = 0;
         glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 
         if(!success) {
-            glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
-            glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-            std::cout << "Failure when linking shader files to program." << "\n";
+            // get and print the info log so the user can see what's wrong
+            const int LOG_SIZE = 1024;
+            char infoLog[LOG_SIZE];
+            glGetProgramInfoLog(shaderProgram, LOG_SIZE, nullptr, infoLog);
+            std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
         }
     }
     void cleanShaders(const std::vector<GLuint>& shaders) {
@@ -87,5 +92,3 @@
             glDeleteShader(shader);
         }
     }
-
-
